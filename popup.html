@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EasyMD</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">
+        <svg width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="26" height="26" rx="5" fill="#1a1a1a"/>
+          <text x="13" y="20"
+            font-family="Arial Black, Helvetica Neue, sans-serif"
+            font-weight="900" font-size="14" fill="white"
+            text-anchor="middle" letter-spacing="-0.5">MD</text>
+        </svg>
+      </div>
+      <span class="title">EasyMD</span>
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="enableToggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="editor">MD edit</button>
+    <button class="tab" data-tab="history">History</button>
+    <button class="tab" data-tab="templates">Templates</button>
+    <button class="tab" data-tab="shortcuts" title="Shortcuts &amp; customize">⌘</button>
+    <button class="tab" data-tab="outliner">Outliner</button>
+  </div>
+
+  <!-- Editor Tab -->
+  <div id="tab-editor" class="tab-content active">
+    <textarea id="editor" placeholder="Start typing..."></textarea>
+    <div class="preview-label">Preview</div>
+    <div class="preview" id="preview"></div>
+    <div class="footer-actions">
+      <span class="active-history-badge" id="activeHistoryBadge"></span>
+      <button id="clearBtn" class="btn-ghost">Clear</button>
+      <button id="copyBtn" class="btn-primary">Copy &amp; Save</button>
+    </div>
+  </div>
+
+  <!-- History Tab -->
+  <div id="tab-history" class="tab-content">
+    <div class="history-header">
+      <span class="history-title">Copy history</span>
+      <button id="clearHistoryBtn" class="btn-ghost-sm">Clear all</button>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="empty-state">No history yet.<br>Copy &amp; Save to add entries.</div>
+    </div>
+  </div>
+
+  <!-- Templates Tab -->
+  <div id="tab-templates" class="tab-content">
+    <div class="history-header">
+      <span class="history-title">Templates</span>
+      <button id="clearTemplatesBtn" class="btn-ghost-sm">Clear all</button>
+    </div>
+    <div class="history-list" id="templateList">
+      <div class="empty-state">No templates yet.<br>Use "+Temp" in History to save one.</div>
+    </div>
+  </div>
+
+  <!-- Shortcuts Tab -->
+  <div id="tab-shortcuts" class="tab-content">
+    <div class="sc-header">
+      <span class="sc-header-title">Shortcuts</span>
+      <button id="resetAllBtn" class="btn-ghost-sm">Reset all</button>
+    </div>
+    <div class="sc-col-header">
+      <span></span>
+      <span class="sc-col-label">⌘ + key</span>
+    </div>
+    <div class="shortcut-list" id="shortcutList"></div>
+    <div class="indent-tip">
+      Enter → continue list &nbsp;·&nbsp; Tab / Shift+Tab → indent / unindent (bullet lists only)
+    </div>
+    <p class="note">Changes apply to all textareas on any page.</p>
+  </div>
+
+
+  <!-- Outliner Tab -->
+  <div id="tab-outliner" class="tab-content">
+    <div class="ol-toolbar">
+      <button class="ol-btn" id="olAddBtn" title="Add node (Enter)">+ Node</button>
+      <button class="ol-btn" id="olCollapseAllBtn" title="Collapse all">⊟</button>
+      <button class="ol-btn" id="olExpandAllBtn"  title="Expand all">⊞</button>
+      <span class="ol-spacer"></span>
+      <button class="ol-btn ol-btn-copy" id="olCopyBtn" title="Copy outline as Markdown bullet list &amp; save to History">Copy</button>
+      <button class="ol-btn ol-btn-export" id="olExportBtn" title="Export as Markdown headings to MD Edit tab">MD Export</button>
+    </div>
+    <div class="ol-tree" id="olTree"></div>
+    <div class="ol-hint">Enter new node · Tab indent · Shift+Tab unindent · Alt+↑↓ move · Backspace on empty removes</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="marked.min.js"></script>
+  <script src="popup.js"></script>
+  <script src="outliner.js"></script>
+</body>
+</html>
